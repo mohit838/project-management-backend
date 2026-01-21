@@ -1,0 +1,9 @@
+dist
+node_modules
+*.log
+.env
+.env.example
+Dockerfile
+docker-compose.yml
+tsconfig.build.json
+pnpm-lock.yaml

@@ -1,0 +1,17 @@
+@host = http://localhost:4000
+@baseUrl = {{host}}/api
+
+### Health
+GET {{host}}/health
+
+### API Root
+GET {{baseUrl}}
+
+### Auth Ping
+GET {{baseUrl}}/auth/ping
+
+### Users Ping
+GET {{baseUrl}}/users/ping
+
+### Projects Ping
+GET {{baseUrl}}/projects/ping

@@ -1,0 +1,30 @@
+.
+├── DEV_GUIDE.md
+├── eslint.config.js
+├── package.json
+├── pnpm-lock.yaml
+├── project-tree.txt
+├── README.md
+├── src
+│   ├── app.ts
+│   ├── lib
+│   ├── middlewares
+│   │   ├── errorHandler.ts
+│   │   └── notFound.ts
+│   ├── modules
+│   │   ├── auth
+│   │   │   └── auth.routes.ts
+│   │   ├── projects
+│   │   │   └── projects.routes.ts
+│   │   └── users
+│   │       └── users.routes.ts
+│   ├── routes
+│   │   └── index.ts
+│   ├── server.ts
+│   └── utils
+│       ├── asyncHandler.ts
+│       └── httpError.ts
+├── tsconfig.json
+└── tsup.config.ts
+
+9 directories, 18 files
