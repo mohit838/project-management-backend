@@ -18,6 +18,7 @@ pnpm add -D tsup tsx eslint prettier vitest supertest @types/supertest
 ## Generate keys
 
 - `openssl rand -hex 32`
+- `node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"`
 
 ## Docker Composer
 
