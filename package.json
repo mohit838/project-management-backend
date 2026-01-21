@@ -12,7 +12,11 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "test": "vitest",
-    "test:ci": "vitest run"
+    "test:ci": "vitest run",
+    "seed": "prisma db seed"
+  },
+  "prisma": {
+    "seed": "tsx prisma/seed.ts"
   },
   "dependencies": {
     "@prisma/adapter-pg": "7.3.0",
