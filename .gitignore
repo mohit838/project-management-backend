@@ -7,3 +7,6 @@ pnpm-debug.log*
 logs
 *.log
 request-test.http
+/src/generated/prisma
+
+/generated/prisma
