@@ -12,7 +12,7 @@ pnpm add -D tsup tsx eslint prettier vitest supertest @types/supertest
 - `Linux / macOS`
 
 ```bash
-  tree -I "node_modules|dist|.git|.vscode|logs|tmp|coverage|vendor" > project-tree.txt
+  tree -I "node_modules|dist|.git|.vscode|logs|tmp|coverage|vendor|generated" > project-tree.txt
 ```
 
 ## Generate keys

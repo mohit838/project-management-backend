@@ -3,11 +3,23 @@
 ├── eslint.config.js
 ├── package.json
 ├── pnpm-lock.yaml
+├── prisma
+│   ├── migrations
+│   │   ├── 20260121174708_init
+│   │   │   └── migration.sql
+│   │   ├── 20260121175842_project_management_schema
+│   │   │   └── migration.sql
+│   │   └── migration_lock.toml
+│   └── schema.prisma
+├── prisma.config.ts
 ├── project-tree.txt
 ├── README.md
+├── request-dev.http
+├── request-test.http
 ├── src
 │   ├── app.ts
-│   ├── lib
+│   ├── config
+│   │   └── env.ts
 │   ├── middlewares
 │   │   ├── errorHandler.ts
 │   │   └── notFound.ts
@@ -27,4 +39,4 @@
 ├── tsconfig.json
 └── tsup.config.ts
 
-9 directories, 18 files
+13 directories, 26 files

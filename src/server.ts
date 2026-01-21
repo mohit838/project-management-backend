@@ -1,12 +1,23 @@
 import "dotenv/config";
+
 import { createApp } from "./app.js";
 import { env } from "./config/env.js";
+import { prisma } from "./lib/prisma.js";
 
 const app = createApp();
 
 const server = app.listen(env.PORT, () => {
   console.log(`API running on http://localhost:${env.PORT}`);
 });
+
+async function closeResources() {
+  try {
+    await prisma.$disconnect();
+    console.log("Prisma disconnected.");
+  } catch (e) {
+    console.error("Error disconnecting Prisma:", e);
+  }
+}
 
 function shutdown(signal: string) {
   console.log(`\n${signal} received and shutting down gracefully...`);
@@ -17,8 +28,10 @@ function shutdown(signal: string) {
       process.exit(1);
     }
 
-    console.log("HTTP server closed.");
-    process.exit(0);
+    void closeResources().finally(() => {
+      console.log("HTTP server closed.");
+      process.exit(0);
+    });
   });
 
   // Force shutdown if it hangs
