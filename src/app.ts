@@ -25,6 +25,8 @@ export function createApp() {
     })
   );
 
+  app.set("trust proxy", 2);
+
   app.use("/api", globalRateLimiter);
 
   app.get("/health", (_req, res) => {

@@ -12,3 +12,9 @@ services:
       - .env
     ports:
       - "${APP_EXTERNAL_PORT}:3214"
+    networks:
+      - pm-net
+
+networks:
+  pm-net:
+    external: true
