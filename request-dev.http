@@ -47,3 +47,32 @@ POST {{baseUrl}}/auth/logout
 Content-Type: application/json
 
 {}
+
+
+### Me (requires Bearer token)
+GET {{baseUrl}}/users/me
+Authorization: Bearer {{adminAccessToken}}
+
+
+### Invite user (ADMIN)
+# @name inviteUser
+POST {{baseUrl}}/auth/invite
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "email": "tanaba1623@naprb.com",
+  "role": "STAFF"
+}
+
+
+# http://localhost:3000/register?token=TOKEN_HERE
+### Register via invite
+POST {{baseUrl}}/auth/register-via-invite
+Content-Type: application/json
+
+{
+  "token": "PASTE_TOKEN_HERE",
+  "name": "Staff One",
+  "password": "Staff@12345"
+}

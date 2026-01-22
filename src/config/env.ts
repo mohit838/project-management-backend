@@ -24,16 +24,15 @@ const envSchema = z.object({
   // Cookies
   COOKIE_SECURE: z.coerce.boolean().default(false),
   COOKIE_SAMESITE: z.enum(["lax", "strict", "none"]).default("lax"),
-  REFRESH_COOKIE_NAME: z.string().default("pm_refresh"),
+  REFRESH_COOKIE_NAME: z.string().min(1),
 
   // Email
-  SMTP_HOST: z.string().optional(),
-  SMTP_PORT: z.coerce.number().optional(),
-  SMTP_USER: z.string().optional(),
-  SMTP_PASS: z.string().optional(),
-  SMTP_FROM: z.string().optional(),
-
-  APP_URL: z.url().default("http://localhost:3000")
+  SMTP_HOST: z.string().min(1),
+  SMTP_PORT: z.coerce.number().int().positive(),
+  SMTP_USER: z.string().min(1),
+  SMTP_PASS: z.string().min(1),
+  SMTP_FROM: z.string().min(1),
+  APP_URL: z.url()
 });
 
 export type Env = z.infer<typeof envSchema>;
