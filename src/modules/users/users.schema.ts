@@ -1,5 +1,12 @@
-import { UserRole, UserStatus } from "@prisma/client";
+import pkg, {
+  type UserRole as PrismaUserRole,
+  type UserStatus as PrismaUserStatus
+} from "@prisma/client";
 import { z } from "zod";
+
+const { UserRole, UserStatus } = pkg;
+type UserRole = PrismaUserRole;
+type UserStatus = PrismaUserStatus;
 
 export const paginationQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),

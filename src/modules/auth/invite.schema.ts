@@ -1,10 +1,14 @@
-import { UserRole } from "@prisma/client";
-import { z } from "zod";
+import pkg, { type UserRole as PrismaUserRole } from "@prisma/client";
+import z from "zod";
+
+const { UserRole } = pkg;
+type UserRole = PrismaUserRole;
 
 export const inviteSchema = z.object({
   email: z.email(),
   role: z.enum(UserRole).default("STAFF")
 });
+
 export type InviteDto = z.infer<typeof inviteSchema>;
 
 export const registerViaInviteSchema = z.object({

@@ -1,6 +1,6 @@
 import crypto from "crypto";
 
-import { UserRole } from "@prisma/client";
+import pkg, { type UserRole as PrismaUserRole } from "@prisma/client";
 import bcrypt from "bcrypt";
 
 import { env } from "../../config/env.js";
@@ -8,6 +8,9 @@ import { sendInviteEmail } from "../../lib/email.js";
 import { signAccessToken, signRefreshToken } from "../../lib/jwt.js";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../utils/httpError.js";
+
+const { UserRole } = pkg;
+type UserRole = PrismaUserRole;
 
 export async function loginWithEmailPassword(email: string, password: string) {
   const user = await prisma.user.findUnique({ where: { email } });
