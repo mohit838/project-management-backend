@@ -10,7 +10,8 @@
 │   │   ├── 20260121175842_project_management_schema
 │   │   │   └── migration.sql
 │   │   └── migration_lock.toml
-│   └── schema.prisma
+│   ├── schema.prisma
+│   └── seed.ts
 ├── prisma.config.ts
 ├── project-tree.txt
 ├── README.md
@@ -20,23 +21,41 @@
 │   ├── app.ts
 │   ├── config
 │   │   └── env.ts
+│   ├── lib
+│   │   ├── email.ts
+│   │   ├── jwt.ts
+│   │   └── prisma.ts
 │   ├── middlewares
 │   │   ├── errorHandler.ts
-│   │   └── notFound.ts
+│   │   ├── notFound.ts
+│   │   ├── requireAuth.ts
+│   │   └── requireRole.ts
 │   ├── modules
 │   │   ├── auth
-│   │   │   └── auth.routes.ts
+│   │   │   ├── auth.controller.ts
+│   │   │   ├── auth.routes.ts
+│   │   │   ├── auth.schema.ts
+│   │   │   ├── auth.service.ts
+│   │   │   └── invite.schema.ts
 │   │   ├── projects
-│   │   │   └── projects.routes.ts
+│   │   │   ├── projects.controller.ts
+│   │   │   ├── projects.routes.ts
+│   │   │   ├── projects.schema.ts
+│   │   │   └── projects.service.ts
 │   │   └── users
-│   │       └── users.routes.ts
+│   │       ├── users.controller.ts
+│   │       ├── users.routes.ts
+│   │       ├── users.schema.ts
+│   │       └── users.service.ts
 │   ├── routes
 │   │   └── index.ts
 │   ├── server.ts
+│   ├── types
+│   │   └── express.d.ts
 │   └── utils
 │       ├── asyncHandler.ts
 │       └── httpError.ts
 ├── tsconfig.json
 └── tsup.config.ts
 
-13 directories, 26 files
+15 directories, 43 files
