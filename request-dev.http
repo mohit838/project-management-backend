@@ -2,6 +2,8 @@
 @baseUrl = {{host}}/api
 @adminEmail = admin@example.com
 @adminPassword = password
+@projectId = {{createProject.response.body.data.id}}
+
 
 ### Health
 GET {{host}}/health
@@ -101,3 +103,36 @@ Authorization: Bearer {{adminAccessToken}}
 {
   "status": "INACTIVE"
 }
+
+############################################################
+# PROJECTS
+############################################################
+### Create Project
+# @name createProject
+POST {{baseUrl}}/projects
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "name": "Website ABC11",
+  "description": "ABC11 landing page",
+  "status": "ACTIVE"
+}
+
+
+### List Projects
+GET {{baseUrl}}/projects?page=1&limit=10
+Authorization: Bearer {{adminAccessToken}}
+
+### Update Project (ADMIN)
+PATCH {{baseUrl}}/projects/{{projectId}}
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "status": "ARCHIVED"
+}
+
+### Soft Delete Project (ADMIN)
+DELETE {{baseUrl}}/projects/{{projectId}}
+Authorization: Bearer {{adminAccessToken}}
