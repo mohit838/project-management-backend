@@ -8,9 +8,6 @@
 ### Health
 GET {{host}}/health
 
-### API Root
-GET {{baseUrl}}
-
 ### Auth Ping
 GET {{baseUrl}}/auth/ping
 

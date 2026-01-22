@@ -1,6 +1,9 @@
 .
 ├── DEV_GUIDE.md
+├── docker-compose.yml
+├── Dockerfile
 ├── eslint.config.js
+├── Jenkinsfile
 ├── package.json
 ├── pnpm-lock.yaml
 ├── prisma
@@ -21,6 +24,7 @@
 │   ├── app.ts
 │   ├── config
 │   │   └── env.ts
+│   ├── health.test.ts
 │   ├── lib
 │   │   ├── email.ts
 │   │   ├── jwt.ts
@@ -28,6 +32,7 @@
 │   ├── middlewares
 │   │   ├── errorHandler.ts
 │   │   ├── notFound.ts
+│   │   ├── rateLimiter.ts
 │   │   ├── requireAuth.ts
 │   │   └── requireRole.ts
 │   ├── modules
@@ -36,6 +41,7 @@
 │   │   │   ├── auth.routes.ts
 │   │   │   ├── auth.schema.ts
 │   │   │   ├── auth.service.ts
+│   │   │   ├── auth.test.ts
 │   │   │   └── invite.schema.ts
 │   │   ├── projects
 │   │   │   ├── projects.controller.ts
@@ -54,8 +60,9 @@
 │   │   └── express.d.ts
 │   └── utils
 │       ├── asyncHandler.ts
+│       ├── httpError.test.ts
 │       └── httpError.ts
 ├── tsconfig.json
 └── tsup.config.ts
 
-15 directories, 43 files
+15 directories, 50 files
