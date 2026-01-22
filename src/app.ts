@@ -7,6 +7,7 @@ import morgan from "morgan";
 import { env } from "./config/env.js";
 import { errorHandler } from "./middlewares/errorHandler.js";
 import { notFound } from "./middlewares/notFound.js";
+import { globalRateLimiter } from "./middlewares/rateLimiter.js";
 import routes from "./routes/index.js";
 
 export function createApp() {
@@ -23,6 +24,8 @@ export function createApp() {
       credentials: true
     })
   );
+
+  app.use("/api", globalRateLimiter);
 
   app.get("/health", (_req, res) => {
     res.status(200).json({ ok: true });
