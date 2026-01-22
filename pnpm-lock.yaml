@@ -38,6 +38,9 @@ importers:
       morgan:
         specifier: 1.10.1
         version: 1.10.1
+      ms:
+        specifier: ^2.1.3
+        version: 2.1.3
       pg:
         specifier: ^8.17.2
         version: 8.17.2
@@ -66,6 +69,9 @@ importers:
       '@types/morgan':
         specifier: 1.9.10
         version: 1.9.10
+      '@types/ms':
+        specifier: ^2.1.0
+        version: 2.1.0
       '@types/node':
         specifier: 25.0.9
         version: 25.0.9

@@ -1,5 +1,7 @@
 @host = http://localhost:4000
 @baseUrl = {{host}}/api
+@adminEmail = admin@example.com
+@adminPassword = password
 
 ### Health
 GET {{host}}/health
@@ -15,3 +17,33 @@ GET {{baseUrl}}/users/ping
 
 ### Projects Ping
 GET {{baseUrl}}/projects/ping
+
+############################################################
+# AUTH
+############################################################
+
+### Login (admin)
+# @name loginAdmin
+POST {{baseUrl}}/auth/login
+Content-Type: application/json
+
+{
+  "email": "{{adminEmail}}",
+  "password": "{{adminPassword}}"
+}
+
+### Capture access token from login
+@adminAccessToken = {{loginAdmin.response.body.data.accessToken}}
+
+### Refresh
+# @name refresh
+POST {{baseUrl}}/auth/refresh
+Content-Type: application/json
+
+{}
+
+### Logout
+POST {{baseUrl}}/auth/logout
+Content-Type: application/json
+
+{}
