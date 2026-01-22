@@ -48,11 +48,9 @@ Content-Type: application/json
 
 {}
 
-
-### Me (requires Bearer token)
-GET {{baseUrl}}/users/me
-Authorization: Bearer {{adminAccessToken}}
-
+############################################################
+# AUTH - Invitation
+############################################################
 
 ### Invite user (ADMIN)
 # @name inviteUser
@@ -75,4 +73,31 @@ Content-Type: application/json
   "token": "PASTE_TOKEN_HERE",
   "name": "Staff One",
   "password": "Staff@12345"
+}
+
+############################################################
+# USERS
+############################################################
+
+### List users (ADMIN)
+# @name listUsers
+GET {{baseUrl}}/users?page=1&limit=10
+Authorization: Bearer {{adminAccessToken}}
+
+### Change role
+PATCH {{baseUrl}}/users/REPLACE_USER_ID/role
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "role": "MANAGER"
+}
+
+### Change status
+PATCH {{baseUrl}}/users/REPLACE_USER_ID/status
+Content-Type: application/json
+Authorization: Bearer {{adminAccessToken}}
+
+{
+  "status": "INACTIVE"
 }
