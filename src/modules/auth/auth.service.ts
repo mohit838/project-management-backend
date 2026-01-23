@@ -15,11 +15,12 @@ type UserRole = PrismaUserRole;
 export async function loginWithEmailPassword(email: string, password: string) {
   const user = await prisma.user.findUnique({ where: { email } });
 
-  if (!user) throw new HttpError(401, "Invalid credentials");
-  if (user.status === "INACTIVE") throw new HttpError(403, "User is inactive");
+  if (!user) throw new HttpError(401, "Invalid credentials", { code: "INVALID_CREDENTIALS" });
+  if (user.status === "INACTIVE")
+    throw new HttpError(403, "User is inactive", { code: "USER_INACTIVE" });
 
   const ok = await bcrypt.compare(password, user.passwordHash);
-  if (!ok) throw new HttpError(401, "Invalid credentials");
+  if (!ok) throw new HttpError(401, "Invalid credentials", { code: "INVALID_CREDENTIALS" });
 
   const accessToken = signAccessToken({ sub: user.id, role: user.role });
 
@@ -41,8 +42,9 @@ export async function loginWithEmailPassword(email: string, password: string) {
 export async function issueAccessTokenFromRefresh(userId: string) {
   const user = await prisma.user.findUnique({ where: { id: userId } });
 
-  if (!user) throw new HttpError(401, "Invalid refresh token");
-  if (user.status === "INACTIVE") throw new HttpError(403, "User is inactive");
+  if (!user) throw new HttpError(401, "Invalid refresh token", { code: "INVALID_REFRESH" });
+  if (user.status === "INACTIVE")
+    throw new HttpError(403, "User is inactive", { code: "USER_INACTIVE" });
 
   const accessToken = signAccessToken({ sub: user.id, role: user.role });
   const refreshToken = signRefreshToken({ sub: user.id, v: Date.now() });
@@ -69,12 +71,13 @@ export async function createInviteAndSendEmail(email: string, role: UserRole) {
 export async function registerUsingInvite(token: string, name: string, password: string) {
   const invite = await prisma.invite.findUnique({ where: { token } });
 
-  if (!invite) throw new HttpError(400, "Invalid invite token");
-  if (invite.acceptedAt) throw new HttpError(400, "Invite already used");
-  if (invite.expiresAt.getTime() < Date.now()) throw new HttpError(400, "Invite expired");
+  if (!invite) throw new HttpError(400, "Invalid invite token", { code: "INVITE_INVALID" });
+  if (invite.acceptedAt) throw new HttpError(400, "Invite already used", { code: "INVITE_USED" });
+  if (invite.expiresAt.getTime() < Date.now())
+    throw new HttpError(400, "Invite expired", { code: "INVITE_EXPIRED" });
 
   const existingUser = await prisma.user.findUnique({ where: { email: invite.email } });
-  if (existingUser) throw new HttpError(409, "User already exists");
+  if (existingUser) throw new HttpError(409, "User already exists", { code: "USER_EXISTS" });
 
   const passwordHash = await bcrypt.hash(password, 10);
 

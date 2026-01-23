@@ -116,7 +116,9 @@ export async function updateProject(projectId: string, data: UpdateData) {
 
 export async function softDeleteProject(projectId: string) {
   const existing = await prisma.project.findUnique({ where: { id: projectId } });
-  if (!existing || existing.isDeleted) throw new HttpError(404, "Project not found");
+
+  if (!existing || existing.isDeleted)
+    throw new HttpError(404, "Project not found", { code: "PROJECT_NOT_FOUND" });
 
   return prisma.project.update({
     where: { id: projectId },

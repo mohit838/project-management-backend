@@ -40,7 +40,7 @@ export async function listUsers(page: number, limit: number) {
 
 export async function changeUserRole(userId: string, role: UserRole) {
   const user = await prisma.user.findUnique({ where: { id: userId } });
-  if (!user) throw new HttpError(404, "User not found");
+  if (!user) throw new HttpError(404, "User not found", { code: "USER_NOT_FOUND" });
 
   return prisma.user.update({
     where: { id: userId },

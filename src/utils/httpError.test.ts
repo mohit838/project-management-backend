@@ -3,18 +3,33 @@ import { describe, expect, it } from "vitest";
 import { HttpError } from "./httpError.js";
 
 describe("HttpError", () => {
-  it("should create an instance of HttpError with correct properties", () => {
-    const error = new HttpError(404, "Not Found");
-    expect(error).toBeInstanceOf(HttpError);
-    expect(error).toBeInstanceOf(Error);
-    expect(error.statusCode).toBe(404);
-    expect(error.message).toBe("Not Found");
-    expect(error.name).toBe("HttpError");
+  it("creates HttpError with statusCode + message", () => {
+    const err = new HttpError(404, "Not Found");
+    expect(err).toBeInstanceOf(HttpError);
+    expect(err).toBeInstanceOf(Error);
+    expect(err.statusCode).toBe(404);
+    expect(err.message).toBe("Not Found");
+    expect(err.name).toBe("HttpError");
+    expect(err.code).toBeUndefined();
+    expect(err.details).toBeUndefined();
   });
 
-  it("should work with 500 status code", () => {
-    const error = new HttpError(500, "Internal Server Error");
-    expect(error.statusCode).toBe(500);
-    expect(error.message).toBe("Internal Server Error");
+  it("supports optional code/details without assigning undefined", () => {
+    const err = new HttpError(400, "Bad Request", {
+      code: "VALIDATION_ERROR",
+      details: [{ field: "email", message: "Invalid" }]
+    });
+
+    expect(err.statusCode).toBe(400);
+    expect(err.code).toBe("VALIDATION_ERROR");
+    expect(err.details).toEqual([{ field: "email", message: "Invalid" }]);
+  });
+
+  it("does not set code when not provided", () => {
+    const err1 = new HttpError(400, "Bad");
+    expect(err1.code).toBeUndefined();
+
+    const err2 = new HttpError(400, "Bad", {});
+    expect(err2.code).toBeUndefined();
   });
 });
