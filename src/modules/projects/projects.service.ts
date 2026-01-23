@@ -42,7 +42,12 @@ export async function createProject(input: {
   });
 }
 
-export async function listProjects(page: number, limit: number, search?: string) {
+export async function listProjects(
+  page: number,
+  limit: number,
+  search?: string,
+  status?: ClientProjectStatus
+) {
   const skip = (page - 1) * limit;
   const where: Prisma.ProjectWhereInput = { isDeleted: false };
 
@@ -51,6 +56,10 @@ export async function listProjects(page: number, limit: number, search?: string)
       { name: { contains: search, mode: "insensitive" } },
       { description: { contains: search, mode: "insensitive" } }
     ];
+  }
+
+  if (status) {
+    where.status = status;
   }
 
   const [items, total] = await Promise.all([

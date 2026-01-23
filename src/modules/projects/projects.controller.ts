@@ -40,8 +40,8 @@ export const postProject = [
 export const getProjects = [
   requireAuth,
   asyncHandler(async (req: Request, res: Response) => {
-    const { page, limit, search } = paginationQuerySchema.parse(req.query);
-    const data = await listProjects(page, limit, search);
+    const { page, limit, search, status } = paginationQuerySchema.parse(req.query);
+    const data = await listProjects(page, limit, search, status);
     res.status(200).json({ data });
   })
 ];

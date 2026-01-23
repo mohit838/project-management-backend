@@ -3,7 +3,8 @@ import { z } from "zod";
 export const paginationQuerySchema = z.object({
   page: z.coerce.number().int().positive().default(1),
   limit: z.coerce.number().int().positive().max(100).default(10),
-  search: z.string().optional()
+  search: z.string().optional(),
+  status: z.enum(["ACTIVE", "ARCHIVED"]).optional()
 });
 
 export const idParamSchema = z.object({

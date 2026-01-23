@@ -3,7 +3,13 @@ import type { UserRole, UserStatus, Prisma } from "@prisma/client";
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../utils/httpError.js";
 
-export async function listUsers(page: number, limit: number, search?: string) {
+export async function listUsers(
+  page: number,
+  limit: number,
+  search?: string,
+  role?: UserRole,
+  status?: UserStatus
+) {
   const skip = (page - 1) * limit;
 
   const where: Prisma.UserWhereInput = {};
@@ -13,6 +19,9 @@ export async function listUsers(page: number, limit: number, search?: string) {
       { email: { contains: search, mode: "insensitive" } }
     ];
   }
+
+  if (role) where.role = role;
+  if (status) where.status = status;
 
   const [items, total] = await Promise.all([
     prisma.user.findMany({

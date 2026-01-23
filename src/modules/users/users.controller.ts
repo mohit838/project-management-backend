@@ -12,8 +12,8 @@ import {
 import { changeUserRole, changeUserStatus, listUsers } from "./users.service.js";
 
 export const getUsers = asyncHandler(async (req: Request, res: Response) => {
-  const { page, limit, search } = paginationQuerySchema.parse(req.query);
-  const data = await listUsers(page, limit, search);
+  const { page, limit, search, role, status } = paginationQuerySchema.parse(req.query);
+  const data = await listUsers(page, limit, search, role, status);
   res.status(200).json({ data });
 });
 
