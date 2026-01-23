@@ -1,4 +1,4 @@
-import type { ProjectStatus } from "@prisma/client";
+import type { ProjectStatus, Prisma } from "@prisma/client";
 
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../utils/httpError.js";
@@ -42,9 +42,16 @@ export async function createProject(input: {
   });
 }
 
-export async function listProjects(page: number, limit: number) {
+export async function listProjects(page: number, limit: number, search?: string) {
   const skip = (page - 1) * limit;
-  const where = { isDeleted: false };
+  const where: Prisma.ProjectWhereInput = { isDeleted: false };
+
+  if (search) {
+    where.OR = [
+      { name: { contains: search, mode: "insensitive" } },
+      { description: { contains: search, mode: "insensitive" } }
+    ];
+  }
 
   const [items, total] = await Promise.all([
     prisma.project.findMany({

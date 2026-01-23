@@ -1,13 +1,22 @@
-import type { UserRole, UserStatus } from "@prisma/client";
+import type { UserRole, UserStatus, Prisma } from "@prisma/client";
 
 import { prisma } from "../../lib/prisma.js";
 import { HttpError } from "../../utils/httpError.js";
 
-export async function listUsers(page: number, limit: number) {
+export async function listUsers(page: number, limit: number, search?: string) {
   const skip = (page - 1) * limit;
+
+  const where: Prisma.UserWhereInput = {};
+  if (search) {
+    where.OR = [
+      { name: { contains: search, mode: "insensitive" } },
+      { email: { contains: search, mode: "insensitive" } }
+    ];
+  }
 
   const [items, total] = await Promise.all([
     prisma.user.findMany({
+      where,
       orderBy: { createdAt: "desc" },
       skip,
       take: limit,
@@ -22,7 +31,7 @@ export async function listUsers(page: number, limit: number) {
         updatedAt: true
       }
     }),
-    prisma.user.count()
+    prisma.user.count({ where })
   ]);
 
   const totalPages = Math.max(1, Math.ceil(total / limit));
