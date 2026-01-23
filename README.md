@@ -11,7 +11,12 @@ A robust, role-based project management backend built with Node.js, TypeScript, 
 - **User Management**: Administrative tools to manage user roles and activation status.
 - **Validation**: Strict request validation using Zod.
 - **Email Integration**: Automated invitation emails (NodeMailer).
+- **Email Integration**: Automated invitation emails (NodeMailer).
 - **Rate Limiting**: Protects APIs against brute-force and DoS attacks using `express-rate-limit`.
+- **Search**: Search functionality for Users (by name/email) and Projects (by name/description).
+
+### Deployment
+**Live URL**: [Replace with Deployed URL]
 
 ---
 

@@ -10,3 +10,4 @@ request-test.http
 /src/generated/prisma
 
 /generated/prisma
+draft.md
